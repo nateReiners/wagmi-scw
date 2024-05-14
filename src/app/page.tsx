@@ -1,6 +1,6 @@
 'use client'
 
-import { useAccount, useConnect, useDisconnect } from 'wagmi'
+import { useAccount, useChainId, useConnect, useDisconnect } from 'wagmi'
 import { Capabilities } from '@/components/Capabilities'
 import { Transact } from '@/components/Transact'
 import { SignMessage } from '@/components/SignMessage'
@@ -20,6 +20,7 @@ function App() {
   const account = useAccount()
   const { connectors, connect, status, error } = useConnect()
   const { disconnect } = useDisconnect()
+  const chainId = useChainId()
 
   return (
     <>
@@ -47,7 +48,7 @@ function App() {
         {connectors.map((connector) => (
           <button
             key={connector.uid}
-            onClick={() => connect({ connector })}
+            onClick={() => connect({ connector, chainId })}
             type="button"
           >
             {connector.name}
